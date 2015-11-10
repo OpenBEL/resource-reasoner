@@ -1,0 +1,13 @@
+prefix belv: <http://www.openbel.org/vocabulary/>
+prefix owl:  <http://www.w3.org/2002/07/owl#>
+prefix rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+prefix skos: <http://www.w3.org/2004/02/skos/core#>
+
+ASK WHERE {
+    ?a belv:orthologousMatch ?b  .
+    ?a skos:exactMatch       ?aa .
+    ?b skos:exactMatch       ?bb .
+    FILTER NOT EXISTS {
+        ?aa belv:orthologousMatch ?bb .
+    }
+}

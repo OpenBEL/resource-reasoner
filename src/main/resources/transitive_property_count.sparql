@@ -1,0 +1,17 @@
+PREFIX owl:  <http://www.w3.org/2002/07/owl#>
+PREFIX rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+
+# This counts transitive triples for TransitiveProperty predicates.
+# This ignored reflexivity (e.g. ?a != ?c).
+
+SELECT (COUNT(DISTINCT ?a) as ?count)
+WHERE {
+    ?p rdf:type owl:TransitiveProperty .
+    ?a ?p       ?b                     .
+    ?b ?p       ?c                     .
+    FILTER ( ?a != ?c )                .
+    FILTER EXISTS {
+        ?a ?p ?c .
+    }
+}

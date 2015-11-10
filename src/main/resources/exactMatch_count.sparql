@@ -1,0 +1,6 @@
+prefix skos: <http://www.w3.org/2004/02/skos/core#>
+
+SELECT (COUNT(DISTINCT ?s) as ?count)
+WHERE {
+    ?s skos:exactMatch ?o .
+}

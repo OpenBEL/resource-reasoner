@@ -1,0 +1,16 @@
+prefix owl:  <http://www.w3.org/2002/07/owl#>
+prefix rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+prefix skos: <http://www.w3.org/2004/02/skos/core#>
+
+# This counts symmetric triples for SymmetricProperty predicates.
+# This ignored reflexivity (e.g. ?a != ?b).
+
+SELECT (COUNT(DISTINCT ?a) as ?count)
+WHERE {
+    ?p rdf:type owl:SymmetricProperty .
+    ?a ?p       ?b                    .
+    FILTER ( ?a != ?b )               .
+    FILTER EXISTS {
+        ?b ?p ?a .
+    }
+}

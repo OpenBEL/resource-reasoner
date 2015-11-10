@@ -1,0 +1,30 @@
+prefix skos: <http://www.w3.org/2004/02/skos/core#>
+
+CONSTRUCT {
+    ?a skos:exactMatch ?b .
+    ?a skos:exactMatch ?c .
+    ?a skos:exactMatch ?d .
+    ?b skos:exactMatch ?a .
+    ?b skos:exactMatch ?c .
+    ?b skos:exactMatch ?d .
+    ?c skos:exactMatch ?a .
+    ?c skos:exactMatch ?b .
+    ?c skos:exactMatch ?d .
+    ?d skos:exactMatch ?a .
+    ?d skos:exactMatch ?b .
+    ?d skos:exactMatch ?c .
+}
+WHERE {
+    ?a skos:exactMatch ?b .
+    ?a skos:exactMatch ?c .
+    ?a skos:exactMatch ?d .
+    ?b skos:exactMatch ?a .
+    ?b skos:exactMatch ?c .
+    ?b skos:exactMatch ?d .
+    ?c skos:exactMatch ?a .
+    ?c skos:exactMatch ?b .
+    ?c skos:exactMatch ?d .
+    ?d skos:exactMatch ?a .
+    ?d skos:exactMatch ?b .
+    ?d skos:exactMatch ?c .
+}

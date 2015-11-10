@@ -1,0 +1,6 @@
+prefix belv: <http://www.openbel.org/vocabulary/>
+
+SELECT (COUNT(*) as ?count)
+WHERE {
+    ?s belv:orthologousMatch ?o .
+}

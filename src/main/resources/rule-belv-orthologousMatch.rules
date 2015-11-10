@@ -1,0 +1,16 @@
+@prefix belv: <http://www.openbel.org/vocabulary/> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+
+[
+    SymmetricOrthologousMatch:
+        (?a belv:orthologousMatch ?b)
+        ->
+        (?b belv:orthologousMatch ?a)
+]
+
+[
+    OrthologousMatchThroughExactMatch:
+        (?a belv:orthologousMatch ?b), (?a skos:exactMatch ?aa), (?b skos:exactMatch ?bb)
+        ->
+        (?aa belv:orthologousMatch ?bb)
+]

@@ -1,0 +1,16 @@
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+
+[
+    SymmetricExactMatch:
+        (?a skos:exactMatch ?b)
+        ->
+        (?b skos:exactMatch ?a)
+]
+
+[
+    TransitiveExactMatch:
+        (?a skos:exactMatch ?b), (?b skos:exactMatch ?c)
+        ->
+        (?a skos:exactMatch ?c)
+]
+

@@ -1,0 +1,15 @@
+PREFIX owl:  <http://www.w3.org/2002/07/owl#>
+PREFIX rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+
+# This checks for missing transitivity and ignores reflexivity (e.g. ?a != ?c).
+
+ASK WHERE {
+    ?p rdf:type owl:TransitiveProperty .
+    ?a ?p       ?b                     .
+    ?b ?p       ?c                     .
+    FILTER ( ?a != ?c )                .
+    FILTER NOT EXISTS {
+        ?a ?p ?c .
+    }
+}
