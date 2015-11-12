@@ -180,11 +180,14 @@ public class RDFFunctions {
     }
 
     public static void runConceptReasoning_(Model model) {
-        InfModel conceptInferenceModel = ModelFactory.createInfModel(createConceptReasoner(), model);
+        GenericRuleReasoner conceptReasoner = createConceptReasoner();
+        conceptReasoner.setMode(GenericRuleReasoner.FORWARD_RETE);
+
+        InfModel conceptInferenceModel = ModelFactory.createInfModel(conceptReasoner, model);
         conceptInferenceModel.getRawModel().add(conceptInferenceModel.listStatements());
     }
 
-    public static Reasoner createConceptReasoner() {
+    public static GenericRuleReasoner createConceptReasoner() {
         Rule.Parser skosExactMatch = Rule.rulesParserFromReader(
                 new BufferedReader(new InputStreamReader(Main.class.getResourceAsStream("/rule-skos-exactMatch.rules")))
         );
