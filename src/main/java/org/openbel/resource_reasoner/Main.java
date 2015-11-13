@@ -11,11 +11,9 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Paths;
-import java.util.Arrays;
 import java.util.Scanner;
 
 import static java.lang.System.*;
-import static java.lang.String.format;
 import static org.openbel.resource_reasoner.RDFFunctions.*;
 
 public class Main {
@@ -127,10 +125,5 @@ public class Main {
         InputStream sparqlOrthologousMatch = Main.class.getResourceAsStream("/orthologousMatch_count.sparql");
         String orthologousMatch = new Scanner(sparqlOrthologousMatch, "UTF-8").useDelimiter("\\A").next();
         executeForSolutions_(orthologousMatch, null, ds);
-    }
-
-    private static void log(String msg, Object... args) {
-        Object[] stringArgs = Arrays.stream(args).map(Object::toString).toArray();
-        System.out.println(format(msg, stringArgs));
     }
 }

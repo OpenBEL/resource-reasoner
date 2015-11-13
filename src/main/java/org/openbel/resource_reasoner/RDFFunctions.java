@@ -3,7 +3,6 @@ package org.openbel.resource_reasoner;
 import org.apache.jena.graph.Triple;
 import org.apache.jena.query.*;
 import org.apache.jena.rdf.model.*;
-import org.apache.jena.reasoner.Reasoner;
 import org.apache.jena.reasoner.ReasonerRegistry;
 import org.apache.jena.reasoner.rulesys.GenericRuleReasoner;
 import org.apache.jena.reasoner.rulesys.Rule;
@@ -22,6 +21,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
+import static java.lang.String.format;
 import static java.nio.file.StandardOpenOption.READ;
 
 public class RDFFunctions {
@@ -203,5 +203,10 @@ public class RDFFunctions {
         conceptRules.addAll(belvRules);
 
         return new GenericRuleReasoner(conceptRules);
+    }
+
+    public static void log(String msg, Object... args) {
+        Object[] stringArgs = Arrays.stream(args).map(Object::toString).toArray();
+        System.out.println(format(msg, stringArgs));
     }
 }

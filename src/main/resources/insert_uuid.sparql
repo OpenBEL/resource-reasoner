@@ -1,0 +1,24 @@
+PREFIX belv: <http://www.openbel.org/vocabulary/>
+PREFIX rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+
+INSERT {
+    ?uuidURI  rdf:type               belv:UUIDConceptScheme   .
+    ?uuidURI  rdf:type               skos:ConceptScheme       .
+    ?uuidURI  rdf:type               belv:belv:UUIDConcept    .
+    ?s        rdf:type               belv:UUIDConcept         .
+    ?eq       rdf:type               belv:UUIDConcept         .
+    ?eq       skos:inScheme          ?uuidURI                 .
+}
+WHERE {
+    ?s        rdf:type               belv:NamespaceConcept    .
+    FILTER NOT EXISTS {
+        ?s    rdf:type               belv:UUIDConcept         .
+    }
+    BIND(URI(CONCAT("http://www.openbel.org/bel/uuid/", StrUUID())) AS ?uuidURI) .
+    ?s        skos:exactMatch        ?eq                      .
+    FILTER NOT EXISTS {
+        ?eq   rdf:type               belv:UUIDConcept         .
+    }
+}
+    
