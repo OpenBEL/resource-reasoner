@@ -4,6 +4,7 @@ import org.apache.jena.query.*;
 import org.apache.jena.rdf.model.*;
 import org.apache.jena.riot.Lang;
 import org.apache.jena.riot.RDFDataMgr;
+import org.apache.jena.tdb.TDB;
 import org.apache.jena.vocabulary.RDF;
 import org.apache.jena.vocabulary.SKOS;
 
@@ -37,10 +38,12 @@ public class Main {
 
         log("Loading RDF: %s", resgenFile);
         loadInRDF_(ds, resgenFile, Lang.TURTLE);
+        TDB.sync(ds);
         log("Triple count: %s", tripleCount(ds));
 
         log("Loading RDF: classpath:/bel_schema.ttl");
         loadInRDF_(ds, Main.class.getResourceAsStream("/bel_schema.ttl"), Lang.TURTLE);
+        TDB.sync(ds);
         log("Triple count: %s", tripleCount(ds));
 
         printReport_(ds);
@@ -50,12 +53,14 @@ public class Main {
 
         log("Running SKOS inference");
         runSKOSReasoning_(ds.getDefaultModel());
+        TDB.sync(ds);
         log("Triple count: %s", tripleCount(ds));
 
         printReport_(ds);
 
         log("Running SKOS Concept inference (i.e. exactMatch, orthologousMatch)");
         runConceptReasoning_(ds.getDefaultModel());
+        TDB.sync(ds);
         log("Triple count: %s", tripleCount(ds));
 
         log("Removing reflexive statements for exactMatch/orthologousMatch.");
@@ -66,6 +71,7 @@ public class Main {
             defaultModel.remove(namespaceConcept, SKOS.exactMatch, namespaceConcept);
             defaultModel.remove(namespaceConcept, BELV_orthologousMatch, namespaceConcept);
         }
+        TDB.sync(ds);
 
         printReport_(ds);
 
